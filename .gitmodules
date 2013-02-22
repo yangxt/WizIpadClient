@@ -1,7 +1,3 @@
 [submodule "WizIosSDK"]
 	path = WizIosSDK
-<<<<<<< HEAD
-	url = https://github.com/WizTeam/WizIpadClient.git
-=======
 	url = https://github.com/WizTeam/WizIosSDK.git
->>>>>>> 0a59ee50d3976c875a51022b7564be796fb486af

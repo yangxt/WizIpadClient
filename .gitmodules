@@ -1,3 +1,6 @@
 [submodule "WizIosSDK"]
 	path = WizIosSDK
 	url = https://github.com/WizTeam/WizIosSDK.git
+[submodule "WizIphone"]
+	path = WizIphone
+	url = https://github.com/WizTeam/WizIphoneClient.git

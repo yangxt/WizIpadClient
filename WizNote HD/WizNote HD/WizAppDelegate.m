@@ -7,31 +7,66 @@
 //
 
 #import "WizAppDelegate.h"
+#import "WizGroupListViewController.h"
+@interface ReadViewController : UIViewController
 
-#import "WizMasterViewController.h"
+@end
 
-#import "WizDetailViewController.h"
+@implementation ReadViewController
 
+@end
+
+
+@interface WizAppDelegate ()
+@property (nonatomic, strong) UINavigationController* rootNavigationController;
+@property (nonatomic, strong) UISplitViewController* spilitViewController;
+@end
 @implementation WizAppDelegate
+@synthesize rootNavigationController;
+@synthesize spilitViewController;
+- (void) didSelectAccountUserId:(NSString*)accountUserId
+{
+    WizGroupListViewController* groupViewController = [[WizGroupListViewController alloc] init];
+    groupViewController.accountID = accountUserId;
+    ReadViewController* readController = [[ReadViewController alloc] init];
+    [self setSpilitViewControllerMaster:groupViewController detail:readController];
+}
+
+- (void) showAccountLogin
+{
+    
+}
+
+- (void) checkDefautlAccount
+{
+    NSString* userId = @"b@c.d";
+    NSString* password = @"e";
+    [[WizAccountManager defaultManager] updateAccount:userId password:password personalKbguid:nil];
+    [[WizAccountManager defaultManager] registerActiveAccount:userId];
+    NSString* defaultAccountUserId = [[WizAccountManager defaultManager] activeAccountUserId];
+    if (!defaultAccountUserId || [defaultAccountUserId isEqualToString:@""]) {
+        [self showAccountLogin];
+   }
+    else
+    {
+        [self didSelectAccountUserId:defaultAccountUserId];
+    }
+}
+- (void) setSpilitViewControllerMaster:(UIViewController*)masterCon detail:(UIViewController*)detailCon
+{
+    UINavigationController* masterNav = [[UINavigationController alloc] initWithRootViewController:masterCon];
+    UINavigationController* detailNav = [[UINavigationController alloc] initWithRootViewController:detailCon];
+    self.spilitViewController.viewControllers = @[masterNav, detailNav];
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-
-    WizMasterViewController *masterViewController = [[WizMasterViewController alloc] initWithNibName:@"WizMasterViewController" bundle:nil];
-    UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-
-    WizDetailViewController *detailViewController = [[WizDetailViewController alloc] initWithNibName:@"WizDetailViewController" bundle:nil];
-    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
-
-    masterViewController.detailViewController = detailViewController;
-
-    self.splitViewController = [[UISplitViewController alloc] init];
-    self.splitViewController.delegate = detailViewController;
-    self.splitViewController.viewControllers = @[masterNavigationController, detailNavigationController];
-    self.window.rootViewController = self.splitViewController;
+    self.spilitViewController = [[UISplitViewController alloc] init];
+    self.window.rootViewController = self.spilitViewController;
     [self.window makeKeyAndVisible];
+    [self checkDefautlAccount];
     return YES;
 }
 

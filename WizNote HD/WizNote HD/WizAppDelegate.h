@@ -9,9 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface WizAppDelegate : UIResponder <UIApplicationDelegate>
-
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) UISplitViewController *splitViewController;
-
 @end

@@ -24,8 +24,14 @@
 @implementation WizAppDelegate
 @synthesize rootNavigationController;
 @synthesize spilitViewController;
+
++ (WizAppDelegate*) shareDelegate
+{
+    return [[UIApplication sharedApplication] delegate];
+}
 - (void) didSelectAccountUserId:(NSString*)accountUserId
 {
+    NSLog(@" class is %@",[[UIApplication sharedApplication] delegate]);
     WizGroupListViewController* groupViewController = [[WizGroupListViewController alloc] init];
     groupViewController.accountID = accountUserId;
     ReadViewController* readController = [[ReadViewController alloc] init];

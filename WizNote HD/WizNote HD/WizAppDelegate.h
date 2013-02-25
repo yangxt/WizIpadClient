@@ -10,4 +10,6 @@
 
 @interface WizAppDelegate : UIResponder <UIApplicationDelegate>
 @property (strong, nonatomic) UIWindow *window;
++ (WizAppDelegate*) shareDelegate;
+- (void) didSelectAccountUserId:(NSString*)accountUserId;
 @end
